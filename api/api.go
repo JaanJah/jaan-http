@@ -11,5 +11,6 @@ func main() {
 		return c.SendString("Hello, World!")
 	})
 
+	// TODO: Make port configurable
 	app.Listen(":3000")
 }
