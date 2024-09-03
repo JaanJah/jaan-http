@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
+	"github.com/JaanJah/jaan-http/api/paths"
 	"github.com/gofiber/fiber/v3"
 	"github.com/joho/godotenv"
 )
@@ -15,10 +17,11 @@ func main() {
 	}
 
 	app := fiber.New()
+	listenerAddress := fmt.Sprintf("%s:%s", os.Getenv("HOST"), os.Getenv("PORT"))
 
-	app.Get("/", func(c fiber.Ctx) error {
-		return c.SendString("Hello, World!")
+	app.Get("/", paths.OK)
+
+	app.Listen(listenerAddress, fiber.ListenConfig{
+		EnablePrintRoutes: true,
 	})
-
-	app.Listen(":" + os.Getenv("PORT"))
 }
