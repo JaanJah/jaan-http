@@ -1,4 +1,4 @@
-package status_codes
+package status_code
 
 import "github.com/gofiber/fiber/v3"
 
