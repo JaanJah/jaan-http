@@ -19,7 +19,15 @@ func main() {
 	app := fiber.New()
 	listenerAddress := fmt.Sprintf("%s:%s", os.Getenv("HOST"), os.Getenv("PORT"))
 
-	// Status code paths
+	setupStatusCodeRoutes(app)
+
+	app.Listen(listenerAddress, fiber.ListenConfig{
+		EnablePrintRoutes: os.Getenv("ENABLE_PRINT_ROUTES") == "true",
+	})
+}
+
+func setupStatusCodeRoutes(app *fiber.App) {
+	// Handle root path as regular 200 OK
 	app.Use("/", status_codes.StatusOK)
 	app.Use("/100", status_codes.StatusContinue)
 	app.Use("/101", status_codes.StatusSwitchingProtocols)
@@ -84,8 +92,4 @@ func main() {
 	app.Use("/508", status_codes.StatusLoopDetected)
 	app.Use("/510", status_codes.StatusNotExtended)
 	app.Use("/511", status_codes.StatusNetworkAuthenticationRequired)
-
-	app.Listen(listenerAddress, fiber.ListenConfig{
-		EnablePrintRoutes: os.Getenv("ENABLE_PRINT_ROUTES") == "true",
-	})
 }
