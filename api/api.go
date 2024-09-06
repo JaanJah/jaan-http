@@ -86,6 +86,6 @@ func main() {
 	app.Use("/511", status_codes.StatusNetworkAuthenticationRequired)
 
 	app.Listen(listenerAddress, fiber.ListenConfig{
-		EnablePrintRoutes: false,
+		EnablePrintRoutes: os.Getenv("ENABLE_PRINT_ROUTES") == "true",
 	})
 }
