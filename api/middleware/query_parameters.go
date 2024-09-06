@@ -9,16 +9,22 @@ import (
 )
 
 func QueryParameters(c fiber.Ctx) error {
-	delayParam := c.Query("delay")
-
-	if delayParam != "" {
-		intValue, err := strconv.Atoi(delayParam)
-		if err != nil {
-			log.Printf("Error converting delay parameter to integer: %s", err)
-			return c.Next()
-		}
-		time.Sleep(time.Duration(intValue) * time.Millisecond)
-	}
+	delayQuery(c.Query("delay"))
 
 	return c.Next()
+}
+
+func delayQuery(delay string) {
+	if delay == "" {
+		return
+	}
+
+	intValue, err := strconv.Atoi(delay)
+	if err != nil {
+		// TODO: Figure out proper way how to handle logs and errors like this
+		log.Printf("Error converting delay parameter to integer: %s", err)
+		return
+	}
+	log.Printf("Delaying response by %d milliseconds", intValue)
+	time.Sleep(time.Duration(intValue) * time.Millisecond)
 }
