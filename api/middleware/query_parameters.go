@@ -9,12 +9,12 @@ import (
 )
 
 func QueryParameters(c fiber.Ctx) error {
-	timeoutParam := c.Query("timeout")
+	delayParam := c.Query("delay")
 
-	if timeoutParam != "" {
-		intValue, err := strconv.Atoi(timeoutParam)
+	if delayParam != "" {
+		intValue, err := strconv.Atoi(delayParam)
 		if err != nil {
-			log.Printf("Error converting timeout parameter to integer: %s", err)
+			log.Printf("Error converting delay parameter to integer: %s", err)
 			return c.Next()
 		}
 		time.Sleep(time.Duration(intValue) * time.Millisecond)
