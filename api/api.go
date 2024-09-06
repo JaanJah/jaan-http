@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/JaanJah/jaan-http/api/middleware"
 	"github.com/JaanJah/jaan-http/api/status_code"
 	"github.com/gofiber/fiber/v3"
 	"github.com/joho/godotenv"
@@ -18,6 +19,8 @@ func main() {
 
 	app := fiber.New()
 	listenerAddress := fmt.Sprintf("%s:%s", os.Getenv("HOST"), os.Getenv("PORT"))
+
+	app.Use(middleware.QueryParameters)
 
 	setupStatusCodeRoutes(app)
 
