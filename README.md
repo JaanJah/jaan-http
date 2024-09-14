@@ -15,4 +15,6 @@ various real-world server responses.
 cp .env.example .env
 # Start project
 go run api/api.go
+# Run tests
+go test ./api
 ```
