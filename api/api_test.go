@@ -7,17 +7,16 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
-
 func TestSetupStatusCodeRoutes(t *testing.T) {
 	app := fiber.New()
 	SetupStatusCodeRoutes(app)
 
 	tests := []struct {
-		name string
-		method string
-		path string
+		name       string
+		method     string
+		path       string
 		statusCode int
-	} {
+	}{
 		{"GET /100", "GET", "/100", fiber.StatusContinue},
 		{"POST /200", "POST", "/200", fiber.StatusOK},
 		{"PUT /201", "PUT", "/201", fiber.StatusCreated},
