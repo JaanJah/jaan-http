@@ -22,16 +22,14 @@ func main() {
 
 	app.Use(middleware.QueryParameters)
 
-	setupStatusCodeRoutes(app)
+	SetupStatusCodeRoutes(app)
 
 	app.Listen(listenerAddress, fiber.ListenConfig{
 		EnablePrintRoutes: os.Getenv("ENABLE_PRINT_ROUTES") == "true",
 	})
 }
 
-func setupStatusCodeRoutes(app *fiber.App) {
-	// Handle root path as regular 200 OK
-	app.Use("/", status_code.StatusOK)
+func SetupStatusCodeRoutes(app *fiber.App) {
 	app.Use("/100", status_code.StatusContinue)
 	app.Use("/101", status_code.StatusSwitchingProtocols)
 	app.Use("/102", status_code.StatusProcessing)
